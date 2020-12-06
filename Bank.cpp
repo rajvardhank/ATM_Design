@@ -15,11 +15,11 @@ void Bank::createCheckingAccount(std::string name, int amount){
 }
 
 bool Bank::verifyPin(std::string pin, std::string cardNumber){
-    cardNumberToAccounts[cardNumber]->getCard()->numTries += 1;
-    if (cardNumberToAccounts[cardNumber]->getCard()->numTries > 3) 
+    if (cardNumberToAccounts[cardNumber]->getCard()->numTries >= 3) 
     {
         cardNumberToAccounts[cardNumber]->getCard()->changeCardStatus(blocked);
-        std::cout<<"Sorry your card is blocked. Please contact the bank.\n";
+        cardNumberToAccounts[cardNumber]->getCard()->storeCardTxt();
+        std::cout<<"Sorry your card is blocked due to 3 failed attempts. Please contact the bank.\n";
         return false;
     }    
     else if (cardNumberToAccounts[cardNumber]->getCard()->getPin() == pin)
@@ -27,6 +27,7 @@ bool Bank::verifyPin(std::string pin, std::string cardNumber){
         cardNumberToAccounts[cardNumber]->getCard()->numTries = 0;
         return true;
     }
+    cardNumberToAccounts[cardNumber]->getCard()->numTries += 1;
     return false;
 }
 

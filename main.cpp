@@ -11,11 +11,12 @@ int main(){
     Atm atm;
     int input = 1;
 
-    while (input)
+    while (input != 0)
     {
         atm.doTransaction();
         std::cout<<"Please press 0 to exit ATM or any other key to do another transaction.\n";
-        std::cin>>input;
+        std::cout<<"\n================================\n================================\n\n";
+        input = std::getchar();
     }
 
     for (auto i: banks)

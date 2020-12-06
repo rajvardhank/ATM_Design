@@ -19,12 +19,10 @@ class Card{
 
     public:
         int numTries;
-    
-    private:
-        void storeCardTxt();
-    
+
     public:
         Card(std::string cardNumber, std::string bankName);
+        void storeCardTxt();
         bool isCardValid();
         void changeCardStatus(CardStatus a);
         std::string getPin();

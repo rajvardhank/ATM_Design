@@ -16,8 +16,8 @@ void Atm::getBalance(){
     if (!pinVerified) return;
     int balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
     std::cout<<"You have $"<<balance<<".00 in your account.\n";
-    std::cout<<"Transaction succesfull.\nThank You!\nPress any key to continue.\n";
-    std::cin>>balance;
+    std::cout<<"Transaction succesfull.\n\nThank You!\n";
+    std::cout<<"\n================================\n================================\n\n";
 }
 
 void Atm::depositMoney(int amount){
@@ -25,9 +25,9 @@ void Atm::depositMoney(int amount){
     int balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
     (banks[cardReader.bankName])->acceptAmount(cardReader.cardNumber,amount);
     cashBin->putCash(amount);
-    std::cout<<"\nTransaction succesfull.\nYou have $"<<balance<<".00 in your account.\n";
-    std::cout<<"Thank You!\nPress any key to continue.\n";
-    std::cin>>balance;
+    std::cout<<"\nTransaction succesfull.\n\nYou have $"<<balance<<".00 in your account.\n";
+    std::cout<<"Thank You!\n";
+    std::cout<<"\n================================\n================================\n\n";
 }
 
 void Atm::withdrawMoney(int amount){
@@ -37,30 +37,28 @@ void Atm::withdrawMoney(int amount){
     {
     bool status = (banks[cardReader.bankName])->sanctionAmount(cardReader.cardNumber,amount);
     balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
-    std::cout<<"\nTransaction succesfull.\nYou have $"<<balance<<".00 in your account.\n";
+    if (status) std::cout<<"\nTransaction succesfull.\nPlease Collect your money.\n\nYou have $"<<balance<<".00 in your account.\n";
+    else std::cout<<"Transaction failed.\n\nYou have $"<<balance<<".00 in your account.\n";
     }
     else
     {
         std::cout<<"\nTransaction Failed, sorry the atm is out of money.";
     }
-    std::cout<<"Thank You!\nPress any key to continue.\n";
-    std::cin>>balance;
+    std::cout<<"Thank You!\n";
+    std::cout<<"\n================================\n================================\n\n";
 }
 
 bool Atm::verifyCard(){
-    int temp;
     if (banks.find(cardReader.bankName) == banks.end())
     {
-        std::cout<<"Transaction Failed.\nThis is not a Bank's card. Please enter a valid card.\n";        
-        std::cout<<"Press any key to continue.\n";  
-        std::cin>>temp; 
+        std::cout<<"\nTransaction Failed.\nThis is not a Bank's card. Please enter a valid card.\n";
+        std::cout<<"\n================================\n================================\n\n";
         return false;
     }
     if (!((banks[cardReader.bankName])->checkCardNumExist(cardReader.cardNumber)))
     {
-        std::cout<<"Transaction Failed.\nPlease enter a valid card.\n";        
-        std::cout<<"Press any key to continue.\n";  
-        std::cin>>temp; 
+        std::cout<<"\nTransaction Failed.\nPlease enter a valid card.\n";
+        std::cout<<"\n================================\n================================\n\n";
         return false;
     }
     return true;
@@ -69,14 +67,7 @@ bool Atm::verifyCard(){
 bool Atm::verifyPin(std::string pin)
 {
     bool isRight = (banks[cardReader.bankName])->verifyPin(pin,cardReader.cardNumber); // sending the pin to bank to verify through bank api 
-    if (!isRight)
-    {
-        std::cout<<"\nTransaction Failed.\nYou entered the wrong Pin.\n";
-        std::cout<<"Press any key to continue.\n";  
-        std::cin>>isRight; 
-        pinVerified = false;  
-        return false;  
-    }
+    if (!isRight) return false; 
     pinVerified = true;
     return true;
 }
@@ -86,11 +77,25 @@ void Atm::doTransaction(){
     std::cout<<"Welcome!\n";
     readCard();
     if (!verifyCard()) return;
-
-    std::cout<<"Please enter your PIN: ";
+    if (cardReader.cardStatus != active)
+    {
+        std::cout<<"Sorry, your card is either blocked or suspended, please contact the bank.\n";
+        return;
+    } 
+    
     std::string pin;
-    std::cin>>pin;
-    if (!verifyPin(pin)) return;
+    for (int i= 0; i<3; ++i)
+    {
+        std::cout<<"\nPlease enter your PIN: ";
+        std::cin>>pin;
+        if (verifyPin(pin)) break;
+        else std::cout<<"You entered the wrong Pin.\n";
+    }
+    if (!pinVerified) 
+    {
+        verifyPin(pin);
+        return;
+    }
 
     while (1)
     {
@@ -130,6 +135,7 @@ void Atm::doTransaction(){
         }
     }
     pinVerified = false;
+    cardReader.reset();
 }
 
 Atm::~Atm(){
