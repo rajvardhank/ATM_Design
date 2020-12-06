@@ -12,6 +12,7 @@ class CardReader{
         int cvv;
         CardStatus cardStatus;
         std::string bankName;
+        AccType accType;
 
     public:
         void readCard(std::string cardName);

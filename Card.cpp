@@ -14,11 +14,13 @@ void Card::storeCardTxt(){
     if (cardStatus == blocked) cardFile<<"blocked\n"; 
     if (cardStatus == suspended) cardFile<<"susepended\n"; 
     cardFile<<bank+"\n";
+    if (accType == savings) cardFile<<"savings\n"; 
+    if (accType == checking) cardFile<<"checking\n"; 
     cardFile.close();
 }
 
-Card::Card(std::string cardNumber, std::string bankName) 
-    : cardNumber(cardNumber), bank(bankName){
+Card::Card(std::string cardNumber, std::string bankName, AccType accType) 
+    : cardNumber(cardNumber), bank(bankName), accType(accType){
         expiryDate.day = rand() % 30 + 1;
         expiryDate.month = rand() % 12 + 1;
         expiryDate.year = 2023;

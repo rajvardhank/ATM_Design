@@ -9,14 +9,14 @@ int main(){
     createbanks();
     createAccounts();
     Atm atm;
-    int input = 1;
+    char input = '1';
 
-    while (input != 0)
+    while (input != '0')
     {
         atm.doTransaction();
         std::cout<<"Please press 0 to exit ATM or any other key to do another transaction.\n";
-        std::cout<<"\n================================\n================================\n\n";
-        input = std::getchar();
+        std::cin>>input;
+        std::cout<<"\n================================\n";
     }
 
     for (auto i: banks)

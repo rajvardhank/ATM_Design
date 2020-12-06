@@ -20,7 +20,8 @@ class Atm{
         void withdrawMoney(int amount); 
         void readCard();   
         bool verifyCard();
-        bool verifyPin(std::string pin);
+        void readAndVerifyPin();
+        void selectAccType();
 
     public:
         Atm();

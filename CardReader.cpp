@@ -32,6 +32,9 @@ void CardReader::readCard(std::string cardName){
     else if (line == "suspended") cardStatus = suspended;
     std::getline(cardFile, line);
     bankName = line;
+    std::getline(cardFile, line);
+    if (line == "savings") accType = savings;
+    else if (line == "checking") accType = checking;
     cardFile.close();
 }
 
@@ -41,7 +44,7 @@ void CardReader::reset(){
         expiryDate.year = 0;
         expiryDate.day = 0;
         cvv = 0;
-        cardStatus = active;
+        cardStatus = suspended;
         bankName ="";
 }
 
