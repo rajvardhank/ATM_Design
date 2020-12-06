@@ -2,10 +2,13 @@
 #include "header_files/Atm.h"
 #include "header_files/Bankobjs.h"
 
+std::unordered_map<std::string, Bank*> banks;
+
 int main(){
 
-    Atm atm;
+    createbanks();
     createAccounts();
+    Atm atm;
     int input = 1;
 
     while (input)

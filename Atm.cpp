@@ -14,7 +14,7 @@ void Atm::readCard(){
 
 void Atm::getBalance(){
     if (!pinVerified) return;
-    int balance = banks[cardReader.bankName]->getBalance(cardReader.cardNumber);
+    int balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
     std::cout<<"You have $"<<balance<<".00 in your account.\n";
     std::cout<<"Transaction succesfull.\nThank You!\nPress any key to continue.\n";
     std::cin>>balance;
@@ -22,8 +22,8 @@ void Atm::getBalance(){
 
 void Atm::depositMoney(int amount){
     if (!pinVerified) return;
-    int balance = banks[cardReader.bankName]->getBalance(cardReader.cardNumber);
-    banks[cardReader.bankName]->acceptAmount(cardReader.cardNumber,amount);
+    int balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
+    (banks[cardReader.bankName])->acceptAmount(cardReader.cardNumber,amount);
     cashBin->putCash(amount);
     std::cout<<"\nTransaction succesfull.\nYou have $"<<balance<<".00 in your account.\n";
     std::cout<<"Thank You!\nPress any key to continue.\n";
@@ -35,8 +35,8 @@ void Atm::withdrawMoney(int amount){
     int balance;
     if (cashBin->dispenseCash(amount))
     {
-    bool status = banks[cardReader.bankName]->sanctionAmount(cardReader.cardNumber,amount);
-    balance = banks[cardReader.bankName]->getBalance(cardReader.cardNumber);
+    bool status = (banks[cardReader.bankName])->sanctionAmount(cardReader.cardNumber,amount);
+    balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
     std::cout<<"\nTransaction succesfull.\nYou have $"<<balance<<".00 in your account.\n";
     }
     else
@@ -56,7 +56,7 @@ bool Atm::verifyCard(){
         std::cin>>temp; 
         return false;
     }
-    if (!(banks[cardReader.bankName]->checkCardNumExist(cardReader.cardNumber)))
+    if (!((banks[cardReader.bankName])->checkCardNumExist(cardReader.cardNumber)))
     {
         std::cout<<"Transaction Failed.\nPlease enter a valid card.\n";        
         std::cout<<"Press any key to continue.\n";  
@@ -68,7 +68,7 @@ bool Atm::verifyCard(){
 
 bool Atm::verifyPin(std::string pin)
 {
-    bool isRight = banks[cardReader.bankName]->verifyPin(pin,cardReader.cardNumber); // sending the pin to bank to verify through bank api 
+    bool isRight = (banks[cardReader.bankName])->verifyPin(pin,cardReader.cardNumber); // sending the pin to bank to verify through bank api 
     if (!isRight)
     {
         std::cout<<"\nTransaction Failed.\nYou entered the wrong Pin.\n";

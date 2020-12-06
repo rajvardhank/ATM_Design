@@ -1,8 +1,8 @@
 #include "header_files/Bank.h"
 
-Bank::Bank (std::string bankName) : bankName(bankName){
-    AccNumberCount = 12345;
-}
+int Bank::AccNumberCount = 12345;
+
+Bank::Bank (std::string bankName) : bankName(bankName){}
 
 void Bank::createSavingsAccount(std::string name, int amount, int fee){
     cardNumberToAccounts[std::to_string(AccNumberCount)] = new SavingsAccount(name, std::to_string(AccNumberCount), amount, fee);
