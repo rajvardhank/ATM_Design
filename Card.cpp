@@ -1,6 +1,7 @@
-#include "header_files/Card.h"
 #include <fstream>
 #include <string>
+#include "header_files/Card.h"
+#include "header_files/Screen.h"
 
 void Card::storeCardTxt(){
     std::fstream cardFile;
@@ -32,14 +33,9 @@ Card::Card(std::string cardNumber, std::string bankName, AccType accType)
 }
 
 bool Card::isCardValid(){
-    if (cardStatus == blocked)
+    if (cardStatus == blocked || cardStatus == suspended)
     {
-        std::cout<<"Sorry your card is blocked.\n";
-        return false;
-    }
-    else if (cardStatus == suspended)
-    {
-        std::cout<<"Your card is suspended.\n";
+        Screen::cardStatus(cardStatus);
         return false;
     }
     return true;

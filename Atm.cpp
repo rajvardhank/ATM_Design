@@ -1,4 +1,5 @@
 #include "header_files/Atm.h"
+#include "header_files/Screen.h"
 
 Atm::Atm(){
     cashBin = new CashBin(10000);
@@ -6,7 +7,6 @@ Atm::Atm(){
 }
 
 void Atm::readCard(){
-    std::cout<<"Please insert card: ";
     std::string cardName;
     std::cin>> cardName;
     cardReader.readCard(cardName);
@@ -15,9 +15,8 @@ void Atm::readCard(){
 void Atm::getBalance(){
     if (!pinVerified) return;
     int balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
-    std::cout<<"You have $"<<balance<<".00 in your account.\n";
-    std::cout<<"Transaction succesfull.\n\nThank You!\n";
-    std::cout<<"\n================================\n\n";
+    Screen::transactionSuccefull(balance);
+    Screen::newLine();
 }
 
 void Atm::depositMoney(int amount){
@@ -25,9 +24,8 @@ void Atm::depositMoney(int amount){
     (banks[cardReader.bankName])->acceptAmount(cardReader.cardNumber,amount);
     cashBin->putCash(amount);
     int balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
-    std::cout<<"\nTransaction succesfull.\n\nYou have $"<<balance<<".00 in your account.\n";
-    std::cout<<"Thank You!\n";
-    std::cout<<"\n================================\n\n";
+    Screen::transactionSuccefull(balance);
+    Screen::newLine();
 }
 
 void Atm::withdrawMoney(int amount){
@@ -35,33 +33,33 @@ void Atm::withdrawMoney(int amount){
     int balance;
     if (cashBin->dispenseCash(amount))
     {
-    bool status = (banks[cardReader.bankName])->sanctionAmount(cardReader.cardNumber,amount);
-    balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
-    if (status) std::cout<<"\nTransaction succesfull.\nPlease Collect your money.\n\nYou have $"<<balance<<".00 in your account.\n";
-    else std::cout<<"Transaction failed.\n\nYou have $"<<balance<<".00 in your account.\n";
+        bool status = (banks[cardReader.bankName])->sanctionAmount(cardReader.cardNumber,amount);
+        balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
+        if (status) 
+        {
+            Screen::collectMoney();
+            Screen::transactionSuccefull(balance);
+        }
+        else Screen::transactionFailed(balance, "");
     }
-    else
-    {
-        std::cout<<"\nTransaction Failed, sorry the atm is out of money.";
-    }
-    std::cout<<"Thank You!\n";
-    std::cout<<"\n================================\n\n";
+    else Screen::transactionFailed(balance, "sorry the atm doesn't have enough money");
+    Screen::newLine();
 }
 
 bool Atm::verifyCard(){
     if (banks.find(cardReader.bankName) == banks.end())
     {
-        std::cout<<"\nTransaction Failed.\nThis is not a Bank's card. Please enter a valid card.\n";
-        std::cout<<"\n================================\n\n";
+        Screen::transactionFailed(-1, "This is not a Bank's card. Please enter a valid card.");
+        Screen::newLine();
         return false;
     }
     if (!((banks[cardReader.bankName])->checkCardNumExist(cardReader.cardNumber)))
     {
-        std::cout<<"\nTransaction Failed.\nPlease enter a valid card.\n";
-        std::cout<<"\n================================\n\n";
+        Screen::transactionFailed(-1, "Please enter a valid card.");
+        Screen::newLine();
         return false;
     }
-    std::cout<<"\nYour card is from: "<<cardReader.bankName<<"\n";
+    Screen::bankName(cardReader.bankName);
     return true;
 }
 
@@ -70,7 +68,7 @@ void Atm::readAndVerifyPin()
     std::string pin;
     for (int i= 0; i<3; ++i)
     {
-        std::cout<<"\nPlease enter your PIN: ";
+        Screen::enterPin();
         std::cin>>pin;
         // sending the pin to bank to verify through bank api
         if ((banks[cardReader.bankName])->verifyPin(pin,cardReader.cardNumber)) 
@@ -78,7 +76,7 @@ void Atm::readAndVerifyPin()
             pinVerified = true;
             return; 
         }
-        else std::cout<<"You entered the wrong Pin.\n";
+        else Screen::errorPin();
     }
     if (!pinVerified) (banks[cardReader.bankName])->verifyPin(pin,cardReader.cardNumber);
 }
@@ -86,29 +84,21 @@ void Atm::readAndVerifyPin()
 void Atm::selectAccType(){
     char input = '0';
     if (!pinVerified) return;
-    std::cout<<"\nPlease select Account type:\n";
-    std::cout<<"Savings (You will be charged an ATM withdrawal fee according to your bank rate.) - 1\n";
-    std::cout<<"Checking - 2\n";
+    Screen::accSelection();
     while (1)
     {
         std::cin>>input;
         if (input  == '1')
         {
-            if (cardReader.accType != savings) 
-            {
-                std::cout<<"\nSorry, you don't have a savings account associated with this card, redirecting you to your checking account.\n";
-            }
+            if (cardReader.accType != savings) Screen::notRightAccount("checking", "savings");
             break;
         }
         else if (input  == '2')
         {
-            if (cardReader.accType != checking) 
-            {
-                std::cout<<"\nSorry, you don't have a checking account associated with this card, redirecting you to your savings account.\n";
-            }
+            if (cardReader.accType != checking) Screen::notRightAccount("savings", "checking");
             break;
         }
-        else std::cout<<"Please select a valid option.\n";
+        else Screen::selectValidOption();
     }
 }
 
@@ -116,13 +106,13 @@ void Atm::selectAccType(){
 void Atm::doTransaction(){
     char input;
     int amount;
-    std::cout<<"Welcome!\n";
+    Screen::welcome();
     
     readCard();
     if (!verifyCard()) return;
     if (cardReader.cardStatus != active)
     {
-        std::cout<<"Sorry, your card is either blocked or suspended, please contact the bank.\n";
+        Screen::cardStatus(cardReader.cardStatus);
         return;
     } 
     
@@ -133,11 +123,7 @@ void Atm::doTransaction(){
 
     while (1)
     {
-        std::cout<<"\nWhat would you like to do:\n";
-        std::cout<<"Check Balance - 1\n";
-        std::cout<<"Deposit Money - 2\n";
-        std::cout<<"Withdraw Money - 3\n";
-        std::cout<<"Cancel the transaction - 4\n";
+        Screen::transactionOptions();
         std::cin>>input;
         if (input == '1') 
         {
@@ -146,14 +132,14 @@ void Atm::doTransaction(){
         }
         else if (input == '2') 
         {
-            std::cout<<"\nPlease enter the amount you want to deposit: ";
+            Screen::deposit();
             std::cin>>amount;
             depositMoney(amount);
             break;
         }
         else if (input == '3') 
         {
-            std::cout<<"\nPlease enter the amount you want to withdraw: ";
+            Screen::withdraw();
             std::cin>>amount;
             withdrawMoney(amount);
             break;
@@ -163,10 +149,7 @@ void Atm::doTransaction(){
             cardReader.reset();
             break;
         }
-        else
-        {
-            std::cout<<"Please select a valid option.\n";
-        }
+        else Screen::selectValidOption();
     }
     pinVerified = false;
     cardReader.reset();

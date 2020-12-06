@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <string>
 #include "Card.h"
 
@@ -17,5 +16,4 @@ class CardReader{
     public:
         void readCard(std::string cardName);
         void reset();
-        void showCardDetails();
 };

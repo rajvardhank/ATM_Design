@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include <iostream>
 #include "Card.h"
 
 enum AccStatus{ accActive, accBlocked, accSuspended};

@@ -1,4 +1,5 @@
 #include "header_files/Account.h"
+#include "header_files/Screen.h"
 
 Account::Account(std::string name, std::string number, int amount) 
                 : bankName(name), accountNumber(number), accountBalance(amount) {
@@ -32,13 +33,13 @@ bool SavingsAccount::withdrawMoney(int amount){
                 if (amount+atmTransacftionFee<=accountBalance)
                 {
                     accountBalance -= amount+atmTransacftionFee;
-                    std::cout<<"\nYou have been charged $"<<atmTransacftionFee<<".00 atm transaction fee for your savings account.\n";
+                    Screen::savingsTransactionFee(atmTransacftionFee);
                     return true;
                 }
-                else std::cout<<"\nYou don't have enough balance in your account.\n";
+                else Screen::errorLessBalance();
             }
-            else std::cout<<"\nThe amount you entered is more than your withdrawal limit of $"<<atmWithdrawLimit<<".00\n";
-        else std::cout<<"\nYour account is either blocked or suspended.\n";
+            else Screen::amtMoreThanLimit(atmWithdrawLimit);
+        else Screen::accStatus(accountStatus);
     return false;
 }
 
@@ -57,10 +58,10 @@ bool CheckingAccount::withdrawMoney(int amount){
                     accountBalance -= amount;
                     return true;
                 }
-                else std::cout<<"\nYou don't have enough balance in your account.\n";
+                else Screen::errorLessBalance();
             }
-            else std::cout<<"\nPlease enter an amount below your withdrawal limit of $"<<atmWithdrawLimit<<".00\n";
-        else std::cout<<"\nYour account is either blocked or suspended.\n";
+            else Screen::amtMoreThanLimit(atmWithdrawLimit);
+        else Screen::accStatus(accountStatus);
     return false; 
 }
 

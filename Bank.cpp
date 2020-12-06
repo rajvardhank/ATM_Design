@@ -1,4 +1,5 @@
 #include "header_files/Bank.h"
+#include "header_files/Screen.h"
 
 int Bank::AccNumberCount = 12345;
 
@@ -19,7 +20,7 @@ bool Bank::verifyPin(std::string pin, std::string cardNumber){
     {
         cardNumberToAccounts[cardNumber]->getCard()->changeCardStatus(blocked);
         cardNumberToAccounts[cardNumber]->getCard()->storeCardTxt();
-        std::cout<<"Sorry your card is blocked due to 3 failed attempts. Please contact the bank.\n";
+        Screen::pinFailedAttempts();
         return false;
     }    
     else if (cardNumberToAccounts[cardNumber]->getCard()->getPin() == pin)

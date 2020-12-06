@@ -47,12 +47,3 @@ void CardReader::reset(){
         cardStatus = suspended;
         bankName ="";
 }
-
-void CardReader::showCardDetails(){
-    std::cout<<"Card Details:\n";
-    std::cout<<"card Number: "<<cardNumber<<"\n";
-    std::cout<<"Expiry Date: "<<expiryDate.month<<"/"<<expiryDate.day<<"/"<<expiryDate.year<<"\n";
-    std::cout<<"CVV: ***\n";
-    std::cout<<"Card Status: "<<cardStatus<<"\n";
-    std::cout<<"================================\n================================\n";
-}
