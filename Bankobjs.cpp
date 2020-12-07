@@ -12,7 +12,7 @@ void createbanks(){
 // createCheckingAccount(bank name, amount balance in account)
 void createAccounts(){
     (banks["bankA"])->createSavingsAccount("bankA", 1000, 5);
-    (banks["bankA"])->createCheckingAccount("bankA", 500);
+    (banks["bankA"])->createCheckingAccount("bankA", 5000);
 
     // use this account to test the atm out of money scenario. 
     (banks["bankB"])->createSavingsAccount("bankB", 12000, 10000);

@@ -21,8 +21,8 @@ Download:
 
 ## How to use the app:
 1. Delete all the existing atm cards (*.txt files) in the cards folder.
-2. Run the app, new cards (<card#>_<pin>.txt) will be generated in the cards folder.
-3. Select the card you want and insert it. (type <card#>_<pin>)
+2. Run the app, new cards (<card#>_<cardPin>.txt) will be generated in the cards folder.
+3. Select the card you want and insert it. (type <card#>_<cardPin>)
 4. Enter the pin.
 5. Enter the account type.
 6. Select the Transaction you want to do.
@@ -52,7 +52,7 @@ The code has been explained in the header and source files using descriptive fun
 
 1. __class Card__: This class is used to generate new atm cards, they store the card info like, expiry date, cvv etcetera.
 2. __class Account__: This stores the account info, customer info and atm card and provides the bank an API to modify the balance in the account. It has 2 subclasses __class SavingsAccount__ and __class CheckingAccount__.
-3. __class Bank__: The Bank class is used create different banks, they store the cusstomer accounts (__class Account objects__). This class provides an API to the ATM. 
+3. __class Bank__: The Bank class is used create different banks, they store the cusstomer accounts (__class Account objects__). This class provides an API to the ATM. There is a status option for the card and account as "active", "blocked", "suspended". Although the code never sets the status of the card or account as "suspended", its given as an option to the bank as admin power to suspend an account. If the status is changed manually, no transaction will be allowed.
 4. __class CardReader__: This class is used by the Atm, it reads the users card and stores its info. 
 5. __class CashBin__: This class stores the cash for the Atm, for simplicity the atm is instantiated with $10000.
 4. __class Atm__: This class is used to implement the atm, it does the transaction using all the above classes. 
@@ -108,14 +108,44 @@ The code has been explained in the header and source files using descriptive fun
 
 ## Testing:
 
-1)Insert card, put pin, check balance - succesful.
-2)Insert card, put pin, deposit money - succesful.
-3)Insert card, put pin, withdraw money - succesful.
-4)Do the above tests individuly after exiting the atm and then do them together without exiting the ATM.
-4)Insert card, wrong pin, then right pin, check balance/deposite money/withdraw money - succesfull.
-5)Insert card, put pin, withdraw more than limit - unsuccesfull.
-6)Insert card, put pin, withdraw more than account balance - unsuccesfull.
-7)Insert card, put pin, withdraw from savings more than account balance including fees - unsuccesfull.
-8)Insert card, wrong pin 3 times, card should be blocked, check txt file, try the card again
-all future transactions should be blocked - unsuccesfull.
-9) atm out of money
+1. Testing if the atm can recognise if its not a bank card.
+    * Option 1 - Enter a random number when it asks you to insert card.
+    * Option 2 - After running the .exe, change the card number inside the .txt file generated in cards folder, while keeping the file name as it is.
+    * Expected behavior: will print an error message. 
+2. Input wrong pin for more than 3 times. 
+    * Expected behaviour: will block the card. Can check the card status by manually opening the cards respective .txt file.
+    * Without shutting the app, do another transaction with the same card.
+    * Expected Behaviour: should not allow transaction.
+3.  Testing if card/account is blocked/suspended:
+    * After running the .exe, manully change the status of card from "active" to "blocked" or "suspended" in its .txt file. Use that card.
+    * Expected Behaviour: should not allow transaction.
+4. Selecting wrong option number when provided with options:
+    * Expected behaviour: Will print an error telling to select a valid option.
+5. Try normal transactions: check balance, deposit money, withdraw money with different cards and individually (ie. close the app after each transaction and open it again):
+    * Expected behaviour: should work smoothly.
+6. Try normal transactions: check balance, deposit money, withdraw money with different cards without closing the app.
+    * Expected behaviour:
+        * should change the amount of cash in atm cash bin, over the period of transactions.
+        * should change the balance of the account over multiple transaction.
+        * if an account is blocked, no further transactions must be allowed, unless you manually change the status. 
+7. Withdraw money from savings account:
+    * Expected Behaviour: should charge a transaction fee.
+8. Withdraw money from checking account with not enough balance:
+    * Use card: "12348_1491".
+    * withdraw $500.00
+    * Expected behavior: should print error message
+9. Withdraw money from savings account with just enough balance for the amount but not for the fee:
+    * Use card: "12345_9500".
+    * withdraw $1000.00
+    * Expected behavior: should print error message
+10. Withdraw money more than account atm withdrawal limit ($1000):
+    * Use card: "12346_3358"
+    * withdraw $2000.0
+    * Expected behavior: should print error message
+11. Testing ATM out of money scenario:
+    * Use card: "12347_2145".
+    * withdraw $1000.00
+    * Expected behavior: should print error message
+
+
+# Thank You!
