@@ -83,8 +83,8 @@ void Screen::errorLessBalance(){
     std::cout<<"\nYou don't have enough balance in your account.\n";
 }
 
-void Screen::amtMoreThanLimit(int atmWithdrawLimit){
-    std::cout<<"\nThe amount you entered is more than your withdrawal limit of $"<<atmWithdrawLimit<<".00\n";
+void Screen::amtMoreThanLimit(int amount, int atmWithdrawLimit){
+    std::cout<<"\nThe amount "<<amount<<" is more than your withdrawal limit of $"<<atmWithdrawLimit<<".00\n";
 }
 
 void Screen::pinFailedAttempts(){

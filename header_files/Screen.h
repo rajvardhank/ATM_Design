@@ -22,7 +22,7 @@ class Screen{
         static void withdraw();
         static void savingsTransactionFee(int atmTransacftionFee);
         static void errorLessBalance();
-        static void amtMoreThanLimit(int atmWithdrawLimit);
+        static void amtMoreThanLimit(int amount, int atmWithdrawLimit);
         static void pinFailedAttempts();
         static void transactionSuccefull(int prevbalance, int balance);
         static void transactionFailed(int balance, std::string error);

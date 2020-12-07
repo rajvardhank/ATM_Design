@@ -18,7 +18,7 @@ bool SavingsAccount::withdrawMoney(int amount){
                 }
                 else Screen::errorLessBalance();
             }
-            else Screen::amtMoreThanLimit(atmWithdrawLimit);
+            else Screen::amtMoreThanLimit(amount,atmWithdrawLimit);
         else Screen::accStatus(accountStatus);
     return false;
 }
