@@ -51,6 +51,43 @@ The code has been explained in the header and source files using descriptive fun
 4. __class Atm__: This class is used to implement the atm, it does the transaction using all the above classes. 
 7. __class Screen__: This class is used to print anyhting to the screen. 
 
+## Current Account and Card Details Created for you using "Bankobjs.h":
+1. Account: 12345
+    * Bank: bankA
+    * Account Type: Savings Account
+    * Balance: $1000.00
+    * ATM Withdrawal Fee: $5.00
+    * ATM Withdrawal Limit: $1000.00
+    * Card Details:
+        * Card #: 12345
+        * Expiry Date: 12/12/2023
+        * CVV = 134
+        * PIN = 9500
+
+2. Account: 12346
+    * Bank: bankA
+    * Account Type: Checking Account
+    * Balance: $500.00
+    * ATM Withdrawal Limit: $1000.00
+    * Card Details:
+        * Card #: 12346
+        * Expiry Date: 5/30/2023
+        * CVV = 778
+        * PIN = 3358
+
+3. Account: 12347
+    * Bank: bankB
+    * Account Type: Savings Account
+    * Balance: $12000.00
+    * ATM Withdrawal Fee: $10000.00
+    * ATM Withdrawal Limit: $1000.00
+    * Card Details:
+        * Card #: 12347
+        * Expiry Date: 09/23/2023
+        * CVV = 405
+        * PIN = 2145
+
+
 ## Testing:
 
 1)Insert card, put pin, check balance - succesful.

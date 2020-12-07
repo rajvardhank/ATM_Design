@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "Card.h"
-#include "header_files/Screen.h"
+#include "Screen.h"
 
 enum AccStatus{ accActive, accBlocked, accSuspended};
 
