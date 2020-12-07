@@ -21,8 +21,8 @@ Download:
 
 ## How to use the app:
 1. Delete all the existing atm cards (*.txt files) in the cards folder.
-2. Run the app, new cards (<card#>_<cardPin>.txt) will be generated in the cards folder.
-3. Select the card you want and insert it. (type <card#>_<cardPin>)
+2. Run the app, new cards (**card#**_**cardPin**.txt) will be generated in the cards folder.
+3. Select the card you want and insert it. (type **card#**_**cardPin**)
 4. Enter the pin.
 5. Enter the account type.
 6. Select the Transaction you want to do.
