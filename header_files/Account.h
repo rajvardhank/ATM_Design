@@ -23,6 +23,7 @@ class Account{
         virtual ~Account();
         int getBalance();
         void depositMoney(int amount);
+        virtual int getFee();
 
         // Pure virtual method, as savings and checking account have a different implementation of their own.
         virtual bool withdrawMoney(int amount) = 0;

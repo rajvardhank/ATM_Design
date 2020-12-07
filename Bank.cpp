@@ -37,6 +37,10 @@ bool Bank::sanctionAmount(std::string cardNumber, int amount){
     return cardNumberToAccounts[cardNumber]->withdrawMoney(amount);
 }
 
+int Bank::getTransactionFee(std::string cardNumber){
+    return cardNumberToAccounts[cardNumber]->getFee();
+}
+
 void Bank::acceptAmount(std::string cardNumber, int amount){
     cardNumberToAccounts[cardNumber]->depositMoney(amount);
 }

@@ -22,3 +22,7 @@ bool SavingsAccount::withdrawMoney(int amount){
         else Screen::accStatus(accountStatus);
     return false;
 }
+
+int SavingsAccount::getFee(){
+    return atmTransacftionFee;
+}

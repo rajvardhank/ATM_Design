@@ -28,6 +28,7 @@ class Bank{
         // Banks API to see if the requested amount is within withdrawal limit
         // and to see is the card and account is active and then sanction the amount.
         bool sanctionAmount(std::string cardNumber, int amount);
+        int getTransactionFee(std::string cardNumber);
         
         void acceptAmount(std::string cardNumber, int amount);
         int getBalance (std::string cardNumber);

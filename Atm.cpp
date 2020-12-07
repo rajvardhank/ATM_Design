@@ -30,7 +30,8 @@ void Atm::depositMoney(int amount){
 
 void Atm::withdrawMoney(int amount){
     if (!pinVerified) return;
-    int balance;
+    int balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
+    amount += amount + (banks[cardReader.bankName])->getTransactionFee(cardReader.cardNumber);
     if (cashBin->dispenseCash(amount))
     {
         bool status = (banks[cardReader.bankName])->sanctionAmount(cardReader.cardNumber,amount);

@@ -2,15 +2,22 @@
 ATM design in C++ using OOP
 
 ## Running the program:
-You can either download the "atm.exe" and the cards folder and run the .exe directly.
+### Method 1:
+Download:
+1. "atm.exe"
+2. "cards" folder 
+3. "libgcc_s_dw2-1.dll"
+4. "libstdc++-6.dll"
+5. Delete the .txt files in cards folder
+6. Run the .exe directly.
 
-Or else, clone/download the whole directory.
-And run these 2 commands in the terminal at the that directory.
-
-g++ -c *.cpp
-g++ *.o -o atm.exe
-
-And then run the atm.exe
+### Method 2:
+1. Clone/download the whole directory.
+2. Run these 2 commands in the terminal at the that directory.
+    * g++ -c *.cpp
+    * g++ *.o -o atm
+3. Delete the .txt files in cards folder
+4. Run the atm.exe
 
 ## How to use the app:
 1. Delete all the existing atm cards (*.txt files) in the cards folder.

@@ -15,4 +15,5 @@ class SavingsAccount: public Account{
     public: 
         SavingsAccount(std::string name, std::string number, int amount, int fee);
         bool withdrawMoney(int amount);
+        int getFee();
 };

@@ -14,6 +14,10 @@ void Account::depositMoney(int amount){
     accountBalance += amount;
 }
 
+int Account::getFee(){
+    return 0;
+}
+
 Card* Account::getCard(){
     return card;
 }
