@@ -9,7 +9,7 @@ Download:
 3. "libgcc_s_dw2-1.dll"
 4. "libstdc++-6.dll"
 5. Delete the .txt files in cards folder
-6. Run the .exe directly.
+6. Run the .exe directly by double clicking on it.
 
 ### Method 2:
 1. Clone/download the whole directory.
@@ -17,7 +17,7 @@ Download:
     * g++ -c *.cpp
     * g++ *.o -o atm
 3. Delete the .txt files in cards folder
-4. Run the atm.exe
+4. Run the .exe directly by double clicking on it.
 
 ## How to use the app:
 1. Delete all the existing atm cards (*.txt files) in the cards folder.
