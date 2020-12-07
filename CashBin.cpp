@@ -1,5 +1,6 @@
 #include "header_files/CashBin.h"
 
+
 CashBin::CashBin(int amount) : amountInAtm(amount){}
 
 bool CashBin::dispenseCash(int amount){

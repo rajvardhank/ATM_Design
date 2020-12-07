@@ -2,7 +2,7 @@
 #include "header_files/Screen.h"
 
 Atm::Atm(){
-    cashBin = new CashBin(10000);
+    cashBin = new CashBin(10000); // an atm is instantiated with $10000 in its account
     pinVerified = false;
 }
 

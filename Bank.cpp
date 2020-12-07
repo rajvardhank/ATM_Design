@@ -1,6 +1,7 @@
 #include "header_files/Bank.h"
 #include "header_files/Screen.h"
 
+
 int Bank::AccNumberCount = 12345;
 
 Bank::Bank (std::string bankName) : bankName(bankName){}

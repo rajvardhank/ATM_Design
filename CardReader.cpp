@@ -2,6 +2,7 @@
 #include <fstream>
 #include <sstream>
 
+
 void CardReader::readCard(std::string cardName){
     std::fstream cardFile;
     std::stringstream temp;

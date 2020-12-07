@@ -1,5 +1,6 @@
 #include "header_files/Screen.h"
 
+
 void Screen::newLine(){
     std::cout<<"\n================================\n\n";
 }

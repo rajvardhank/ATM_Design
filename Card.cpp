@@ -20,6 +20,7 @@ void Card::storeCardTxt(){
     cardFile.close();
 }
 
+
 Card::Card(std::string cardNumber, std::string bankName, AccType accType) 
     : cardNumber(cardNumber), bank(bankName), accType(accType){
         expiryDate.day = rand() % 30 + 1;

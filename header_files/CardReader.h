@@ -2,7 +2,7 @@
 #include <string>
 #include "Card.h"
 
-
+// this class is used by the ATM to read and store the card info. 
 class CardReader{
 
     public:

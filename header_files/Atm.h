@@ -4,6 +4,12 @@
 #include "CardReader.h"
 #include "Bankobjs.h"
 
+
+// This is the atm class used to do the required task.
+// No method of the ATM can directly access the customer's account
+// It uses the API provided by the bank to do the transaction. 
+// eg. for the pin, it send the pin and card number to the respective bank of which the card is
+// and gets back the info stating if the pin was right or wrong. 
 class Atm{
 
     private:
@@ -24,5 +30,7 @@ class Atm{
     public:
         Atm();
         ~Atm();
+
+        // Using the above methods it does the transaction. 
         void doTransaction();
 };

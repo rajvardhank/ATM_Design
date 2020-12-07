@@ -1,9 +1,13 @@
 #pragma once
 #include <string>
 #include "Card.h"
+#include "header_files/Screen.h"
 
 enum AccStatus{ accActive, accBlocked, accSuspended};
 
+/*  Base class which cannot be instantiated.
+    Stores the banks name, acc #, balance, card.
+*/
 class Account{
     
     protected:
@@ -19,23 +23,9 @@ class Account{
         virtual ~Account();
         int getBalance();
         void depositMoney(int amount);
+
+        // Pure virtual method, as savings and checking account have a different implementation of their own.
         virtual bool withdrawMoney(int amount) = 0;
+        
         Card* getCard();
-};
-
-class SavingsAccount: public Account{
-
-    private:
-        int atmTransacftionFee;
-
-    public: 
-        SavingsAccount(std::string name, std::string number, int amount, int fee);
-        bool withdrawMoney(int amount);
-};
-
-class CheckingAccount: public Account{
-
-    public: 
-        CheckingAccount(std::string name, std::string number, int amount);
-        bool withdrawMoney(int amount);
 };

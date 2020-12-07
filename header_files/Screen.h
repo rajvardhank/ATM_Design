@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 
+
+// This class is used to print to the screen
 class Screen{
 
     public:
