@@ -59,6 +59,9 @@ The code has been explained in the header and source files using descriptive fun
 7. __class Screen__: This class is used to print anyhting to the screen. 
 
 ## Current Account and Card Details Created for you using "Bankobjs.h":
+__Note:__ The generated cards will be as listed most of the times, but since some details of the card are generated randomly, these listed cards might not work, in that case please check the cards folder for card details. 
+
+
 1. Account: 12345
     * Bank: bankA
     * Account Type: Savings Account

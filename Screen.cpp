@@ -91,8 +91,8 @@ void Screen::pinFailedAttempts(){
     std::cout<<"Sorry your card is blocked due to 3 failed attempts. Please contact the bank.\n";
 }
 
-void Screen::transactionSuccefull(int balance){
-    std::cout<<"\nTransaction succesfull.\n\nYou have $"<<balance<<".00 in your account.\n";
+void Screen::transactionSuccefull(int prevbalance, int balance){
+    std::cout<<"\nTransaction succesfull.\n\nYou had $"<<prevbalance<<".00 in your account, your new balance is $"<<balance<<".00 .\n";
     std::cout<<"Thank You!\n";
 }
 

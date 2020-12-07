@@ -15,21 +15,23 @@ void Atm::readCard(){
 void Atm::getBalance(){
     if (!pinVerified) return;
     int balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
-    Screen::transactionSuccefull(balance);
+    Screen::transactionSuccefull(balance,balance);
     Screen::newLine();
 }
 
 void Atm::depositMoney(int amount){
     if (!pinVerified) return;
+    int prevbalance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
     (banks[cardReader.bankName])->acceptAmount(cardReader.cardNumber,amount);
     cashBin->putCash(amount);
     int balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
-    Screen::transactionSuccefull(balance);
+    Screen::transactionSuccefull(prevbalance,balance);
     Screen::newLine();
 }
 
 void Atm::withdrawMoney(int amount){
     if (!pinVerified) return;
+    int prevbalance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
     int balance = (banks[cardReader.bankName])->getBalance(cardReader.cardNumber);
     amount += amount + (banks[cardReader.bankName])->getTransactionFee(cardReader.cardNumber);
     if (cashBin->dispenseCash(amount))
@@ -39,7 +41,7 @@ void Atm::withdrawMoney(int amount){
         if (status) 
         {
             Screen::collectMoney();
-            Screen::transactionSuccefull(balance);
+            Screen::transactionSuccefull(prevbalance,balance);
         }
         else Screen::transactionFailed(balance, "");
     }
