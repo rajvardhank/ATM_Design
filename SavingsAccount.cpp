@@ -12,7 +12,7 @@ bool SavingsAccount::withdrawMoney(int amount){
             {
                 if (amount+atmTransacftionFee<=accountBalance)
                 {
-                    accountBalance -= amount+atmTransacftionFee;
+                    accountBalance -= amount;
                     Screen::savingsTransactionFee(atmTransacftionFee);
                     return true;
                 }

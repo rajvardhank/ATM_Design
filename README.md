@@ -132,6 +132,8 @@ __Note:__ The generated cards will be as listed most of the times, but since som
         * should change the balance of the account over multiple transaction.
         * if an account is blocked, no further transactions must be allowed, unless you manually change the status. 
 7. Withdraw money from savings account:
+    * Use card: "12345_9500".
+    * withdraw $500.00
     * Expected Behaviour: should charge a transaction fee.
 8. Withdraw money from checking account with not enough balance:
     * Use card: "12348_1491".
