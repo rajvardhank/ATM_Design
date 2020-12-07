@@ -87,6 +87,17 @@ The code has been explained in the header and source files using descriptive fun
         * CVV = 405
         * PIN = 2145
 
+4. Account: 12348
+    * Bank: bankC
+    * Account Type: Checking Account
+    * Balance: $100.00
+    * ATM Withdrawal Limit: $1000.00
+    * Card Details:
+        * Card #: 12346
+        * Expiry Date: 4/2/2023
+        * CVV = 161
+        * PIN = 1491
+
 
 ## Testing:
 
